@@ -9,8 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
     public float defaultMoveSpeed = 5f;
     float horizontalMove = 0f;
+    public PlayerStats playerStats;
+    public Animator animator;
 
     Vector2 movement;
+
+
 
     private float currentMoveSpeed;
     private float dashCounter, dashCooldownCounter;
@@ -21,6 +25,17 @@ public class PlayerMovement : MonoBehaviour
     {
         currentMoveSpeed = defaultMoveSpeed;
     }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Collided");
+            playerStats.TakeDamage(1);
+            // HERE we know that the other object we collided with is an enemy
+            
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -29,11 +44,35 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        
+
+        if(movement.x == -1)
+        {
+            rb.transform.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if(movement.x == 1)
+        {
+            rb.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+
+        if(movement.x != 0 || movement.y != 0)
+        {
+            animator.SetFloat("Speed", 1);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 0);
+        }
+
+        
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            Debug.Log(movement.x);
             //If dash is not on cooldown and dash is not active. Then sets value for dash.
-            if(dashCooldownCounter <= 0 && dashCounter <= 0)
+            if (dashCooldownCounter <= 0 && dashCounter <= 0)
             {
+                
                 camera.CameraDash();
                 currentMoveSpeed = dashSpeed;
                 
