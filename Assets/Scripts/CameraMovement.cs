@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    public Camera _cameraObject;
     public PlayerMovement playerMovement;
     public Transform player;
+    public PlayerStats _PlayerStats;
     private float ActiveSmoothSpeed = 0.01f;
     public float DefaultSmoothSpeed = 0.01f;
     public float CameraDashSpeed = 0.05f;
@@ -13,6 +15,11 @@ public class CameraMovement : MonoBehaviour
     public Vector3 offset;
 
     //Runs after Update, fixes race condition with player.
+
+    private void Start()
+    {
+        _cameraObject.pixelRect = new Rect(0f, 0f, 1000f * 10, 500f * 10);
+    }
     void FixedUpdate()
     {
 
@@ -22,7 +29,7 @@ public class CameraMovement : MonoBehaviour
             if (cameraDashCounter <= 0)
             {
                 ActiveSmoothSpeed = DefaultSmoothSpeed;
-                dashCooldownCounter = playerMovement.dashCooldown;
+                dashCooldownCounter = _PlayerStats.DashCooldown;
             }
         }
         if (dashCooldownCounter > 0)
@@ -36,9 +43,9 @@ public class CameraMovement : MonoBehaviour
 
         transform.position = smoothPostition + offset;
     }
-    public void CameraDash()
+    public void CameraDash(float dashLength)
     {
         ActiveSmoothSpeed = CameraDashSpeed;
-        cameraDashCounter = playerMovement.dashLength;
+        cameraDashCounter = dashLength;
     }
 }

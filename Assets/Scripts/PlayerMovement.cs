@@ -5,27 +5,30 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public CameraMovement camera;
-    public Rigidbody2D rb;
-    public float defaultMoveSpeed = 5f;
-    float horizontalMove = 0f;
-    public PlayerStats playerStats;
-    public Animator animator;
+    public CameraMovement camera_movement;
+    public Camera cam;
+    public GameObject firepoint;
+    public GameObject player;
 
+    public Rigidbody2D rb;
+    float horizontalMove = 0f;
+    public PlayerStats _playerStats;
+    public Animator animator;
+    float _displacement = 0.5f;
     Vector2 movement;
 
 
 
     private float currentMoveSpeed;
     private float dashCounter, dashCooldownCounter;
-    public float dashSpeed;
-    public float dashLength = 2f, dashCooldown = 1f;
+
+    Vector2 mousePos;
 
     private void Start()
     {
-        currentMoveSpeed = defaultMoveSpeed;
+        currentMoveSpeed = _playerStats.MovementSpeed;
     }
-    void OnCollisionEnter2D(Collision2D collision)
+/*    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
@@ -34,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
             // HERE we know that the other object we collided with is an enemy
             
         }
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -44,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
         if(movement.x == -1)
         {
@@ -68,16 +71,16 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Debug.Log(movement.x);
+            
             //If dash is not on cooldown and dash is not active. Then sets value for dash.
             if (dashCooldownCounter <= 0 && dashCounter <= 0)
             {
                 
-                camera.CameraDash();
-                currentMoveSpeed = dashSpeed;
+                camera_movement.CameraDash(_playerStats.DashLength);
+                currentMoveSpeed = _playerStats.DashSpeed;
                 
                 //dash counter is duration of dash.
-                dashCounter = dashLength;
+                dashCounter = _playerStats.DashLength;
             }
         }
 
@@ -97,16 +100,20 @@ public class PlayerMovement : MonoBehaviour
             dashCounter -= Time.fixedDeltaTime;
             if(dashCounter <= 0)
             {
-                currentMoveSpeed = defaultMoveSpeed;
-                dashCooldownCounter = dashCooldown;
+                currentMoveSpeed = _playerStats.MovementSpeed;
+                dashCooldownCounter = _playerStats.DashCooldown;
             }
         }
         if (dashCooldownCounter > 0)
         {
             dashCooldownCounter -= Time.fixedDeltaTime;
         }
-       
         //fixedDeltaTime amount of time that elapsed when the last time fixed update was called. This is so that no matter how many update was called, this is consistent with all systems.
         rb.MovePosition(rb.position + movement * currentMoveSpeed * Time.fixedDeltaTime);
+
+        Vector2 lookdir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookdir.y, lookdir.x);
+        firepoint.transform.position = new Vector3(1.5f*Mathf.Cos(angle) + player.transform.position.x, 1.5f * Mathf.Sin(angle) + player.transform.position.y + _displacement, 0);
+        firepoint.transform.rotation = Quaternion.Euler(Vector3.forward * angle * Mathf.Rad2Deg);
     }
 }
