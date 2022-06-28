@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Player
   - Enemy
-  - 
+  - Hitbox
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 452895083
+    locked: 0
+  - name: Hitbox
+    uniqueID: 3684916047
     locked: 0

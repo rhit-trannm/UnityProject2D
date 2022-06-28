@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public CameraMovement camera_movement;
+    //public CameraMovement camera_movement
     public Camera cam;
     public GameObject firepoint;
     public GameObject player;
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
             if (dashCooldownCounter <= 0 && dashCounter <= 0)
             {
                 
-                camera_movement.CameraDash(_playerStats.DashLength);
+                //camera_movement.CameraDash(_playerStats.DashLength);
                 currentMoveSpeed = _playerStats.DashSpeed;
                 
                 //dash counter is duration of dash.

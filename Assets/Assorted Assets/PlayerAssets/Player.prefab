@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3936026164514084297}
   - component: {fileID: 5364667238567846210}
   - component: {fileID: 2822529211860660698}
+  - component: {fileID: 4657394294121372324}
   - component: {fileID: 2540463467040544403}
   - component: {fileID: 5681719897514356172}
   m_Layer: 6
@@ -61,7 +62,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3936026164514084293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.85, y: 0.3, z: -9}
+  m_LocalPosition: {x: -27.815, y: 0.448, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3936026164359024030}
@@ -80,7 +81,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb392b07d8cffc49ad1b05352257843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera_movement: {fileID: 0}
   cam: {fileID: 0}
   firepoint: {fileID: 3936026164359024029}
   player: {fileID: 3936026164514084293}
@@ -171,10 +171,30 @@ MonoBehaviour:
   _AbilityQ: 0
   _AbilityE: 0
   _AbilityR: 0
+  EAbilityPrefab: {fileID: 5771000519858312805, guid: fe6965a2059c262448747deb27f21ddf,
+    type: 3}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
   attackRange: {x: 2, y: 2}
+  E_AbilityRadius: 0
+  attackSpeed: 20
+--- !u!114 &4657394294121372324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936026164514084293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ba22180dbb8434992bba828f842723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placeholder: {fileID: 2245685361307908478, guid: 62e1a93d4ec8a774782d351b2352781e,
+    type: 3}
+  secondComplete: 5
+  radius: 2
 --- !u!212 &2540463467040544403
 SpriteRenderer:
   m_ObjectHideFlags: 0

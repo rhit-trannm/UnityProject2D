@@ -68407,6 +68407,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2822529211860660698, guid: 9ef89aea8afb8874ca25813934bd85e9,
+        type: 3}
+      propertyPath: attackRange.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822529211860660698, guid: 9ef89aea8afb8874ca25813934bd85e9,
+        type: 3}
+      propertyPath: attackRange.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2822529211860660698, guid: 9ef89aea8afb8874ca25813934bd85e9,
+        type: 3}
+      propertyPath: EAbilityPrefab
+      value: 
+      objectReference: {fileID: 1387183912028142446, guid: 6a90287f1b4c428478abb3197ab32150,
+        type: 3}
     - target: {fileID: 3936026164514084293, guid: 9ef89aea8afb8874ca25813934bd85e9,
         type: 3}
       propertyPath: m_Name
