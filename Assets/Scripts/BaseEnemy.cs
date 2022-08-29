@@ -25,10 +25,24 @@ public class BaseEnemy : MonoBehaviour
         get { return movementSpeed; }
         set { movementSpeed = value; }
     }
+    //private Pathfinding.AIDestinationSetter m_AIDestionationSet;
+    private Pathfinding.AIPath aIPath;
+    private GameObject player;
 
-
+    private void Start()
+    {
+        aIPath = GetComponent<Pathfinding.AIPath>();
+        player = GameObject.Find("Player");
+    }
     private void Update()
     {
+        if(player != null)
+        {
+            aIPath.destination = player.transform.position;
+           // m_AIDestionationSet.target = player.transform;
+        }
+        
+
     }
     public void Heal(float health)
     {

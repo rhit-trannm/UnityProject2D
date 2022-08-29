@@ -5,21 +5,35 @@ using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
 {
-    public Transform firePoint;
+    public GameObject firePoint;
     public GameObject hitboxPrefab;
     public float _AbilityQ, _AbilityE, _AbilityR;
     public GameObject EAbilityPrefab;
     public LayerMask enemyLayers;
+    public LayerMask items;
+
+
     public Vector2 attackRange;
     public float E_AbilityRadius;
+    public float pickUpDistance;
+
+    private PlayerStats _PlayerStats;
+    private GameObject _CurrentGunEquipped;
+
+
 
     public float attackSpeed = 20f;
     // Update is called once per frame
+
+    void Start()
+    {
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            NormalAttack();
+
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -30,30 +44,32 @@ public class PlayerAttackManager : MonoBehaviour
             Debug.Log("E Pressed");
             EAttack();
         }
-
-    }
-
-    void NormalAttack()
-    {
-        Vector3 vector3 = new Vector3(3,3,0);
-        //GameObject hitbox = Instantiate(hitboxPrefab, firePoint.position, firePoint.transform.rotation);
-     
-        Collider2D[] hitEnemies = Physics2D.OverlapBoxAll(firePoint.position, attackRange,0, enemyLayers);
-
-        foreach(Collider2D enemy in hitEnemies)
+        if(Input.GetKeyDown(KeyCode.C))
         {
-            enemy.GetComponent<BaseEnemy>().TakeDamage(30);
-            Debug.Log(enemy.name + " " + enemy.GetComponent<BaseEnemy>().Health);
+            PickUpWeapon();
         }
-    }
 
+    }
+    void PickUpWeapon()
+    {
+        Collider2D[] Items = Physics2D.OverlapBoxAll(firePoint.transform.position, attackRange, 0, items);
+        
+        foreach (Collider2D item in Items)
+        {
+            AbstractGun s = item.GetComponent<AbstractGun>();
+
+            s.onPickUp(firePoint);
+            Debug.Log(item.name);
+        }
+
+    }
 
     void QAttack()
     {
 
-        GameObject hitbox = Instantiate(hitboxPrefab, firePoint.position, firePoint.transform.rotation);
+        GameObject hitbox = Instantiate(hitboxPrefab, firePoint.transform.position, firePoint.transform.rotation);
         Rigidbody2D rb = hitbox.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.right * 20f, ForceMode2D.Impulse);
+        rb.AddForce(firePoint.transform.right * 20f, ForceMode2D.Impulse);
         
     }
 
@@ -72,7 +88,7 @@ public class PlayerAttackManager : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireCube(firePoint.position, attackRange);
+        Gizmos.DrawWireCube(firePoint.transform.position, attackRange);
     }
 
 

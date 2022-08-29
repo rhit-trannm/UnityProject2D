@@ -158,6 +158,11 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 136940000}
+    - target: {fileID: 4029009357075027906, guid: 62e1a93d4ec8a774782d351b2352781e,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1731991804}
     - target: {fileID: 4203609621745776614, guid: 62e1a93d4ec8a774782d351b2352781e,
         type: 3}
       propertyPath: m_IsTrigger
@@ -397,7 +402,7 @@ PrefabInstance:
     - target: {fileID: 3936026164514084294, guid: 9ef89aea8afb8874ca25813934bd85e9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3936026164514084294, guid: 9ef89aea8afb8874ca25813934bd85e9,
         type: 3}
@@ -442,12 +447,17 @@ PrefabInstance:
     - target: {fileID: 4657394294121372324, guid: 9ef89aea8afb8874ca25813934bd85e9,
         type: 3}
       propertyPath: numOfOrbit
-      value: 1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4657394294121372324, guid: 9ef89aea8afb8874ca25813934bd85e9,
         type: 3}
       propertyPath: maxNumOfOrbits
-      value: 3
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657394294121372324, guid: 9ef89aea8afb8874ca25813934bd85e9,
+        type: 3}
+      propertyPath: _MaxNumOfEntitiesInOrbits
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5364667238567846210, guid: 9ef89aea8afb8874ca25813934bd85e9,
         type: 3}
@@ -635,6 +645,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ef14f4d5e9b374388d640983dcddc0, type: 3}
+--- !u!1 &1731991804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3936026164514084293, guid: 9ef89aea8afb8874ca25813934bd85e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1238111684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1637124382126471216
 PrefabInstance:
   m_ObjectHideFlags: 0

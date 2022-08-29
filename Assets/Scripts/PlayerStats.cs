@@ -6,7 +6,26 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-
+    [SerializeField]
+    private int level = 1;
+    public int Level
+    {
+        get { return level; }
+        set { level = value; }
+    }
+    [SerializeField]
+    private float experience = 0;
+    public float Experience
+    {
+        get { return Experience; }
+        set { Experience = value; }
+    }
+    private float maxExperience = 0;
+    public float MaxExperience
+    {
+        get { return maxExperience; }
+        set { maxExperience = value; }
+    }
 
     [SerializeField]
     private float health = 100;
@@ -49,11 +68,24 @@ public class PlayerStats : MonoBehaviour
         get { return dashCooldown; }
         set { dashCooldown = value; }
     }
-    public StatusBar StatusBar;
+    [SerializeField]
 
+    private GameObject PlayerUI;
+
+
+    private BaseBar HP;
+    private BaseBar XP;
+
+    private void Start()
+    {
+        PlayerUI = GameObject.Find("PlayerUI");
+        XP = PlayerUI.transform.Find("XP").transform.Find("Bar").GetComponent<BaseBar>();
+        HP = PlayerUI.transform.Find("HP").transform.Find("Bar").GetComponent<BaseBar>();
+    }
     private void Update()
     {
-        StatusBar.SetHealth(Health);
+        HP.SetSize(health/maxHealth);
+        XP.SetSize(experience/maxExperience);
     }
     public void Heal(float health)
     {
